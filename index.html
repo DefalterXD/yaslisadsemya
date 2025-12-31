@@ -1,0 +1,487 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ЯслиСадСемьЯ</title>
+    <link rel="stylesheet" href="{% static 'main_app/css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'main_app/css/style.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <main class="main__container">
+        <header class="header__container">
+            <div class="upper__container">
+                <h1 class="header__title">ЯслиСадСемьЯ</h1>
+                <input type="checkbox" id="burger__checkbox" class="burger__checkbox">
+                <label for="burger__checkbox" class="burger"></label>
+                <ul class="anchor__container upper">
+                    <li class="anchor__item">
+                        <a href="#about__us" lang="RU">О нас</a>
+                        <a href="#about__us" lang="KZ">Біз туралы</a>
+                    </li>
+                    <li class="anchor__item">
+                        <a href="#teacher" lang="RU">Воспитатели</a>
+                        <a href="#teacher" lang="KZ">Тәрбиешілер</a>
+                    </li>
+                    <li class="anchor__item">
+                        <a href="#groups" lang="RU">Группы</a>
+                        <a href="#groups" lang="KZ">Топтар</a>
+                    </li>
+                    <li class="anchor__item">
+                        <a href="#gallery" lang="RU">Галерея</a>
+                        <a href="#gallery" lang="KZ">Галерея</a>
+                    </li>
+                    <li class="anchor__item btn">
+                        <button type="button" disabled lang="RU">Личный кабинет</button>
+                        <button type="button" disabled lang="KZ">Жеке кабинет</button>
+                    </li>
+                    <li class="anchor__item switcher">
+                        <p>RU</p>
+                        <label class="switch" for="switch">
+                            <input type="checkbox" id="switch">
+                            <span class="slider round"></span>
+                        </label>
+                        <p>KZ</p>
+                    </li>
+                </ul>
+            </div>
+        </header>
+        <section id="billboard">
+            <img src="{% static 'main_app/img/sun.png' %}" class="sun__img" alt="sun">
+            <div class="billboard__text container">
+                <h1 class="billboard__header" lang="RU">Будущее ваших детей</h1>
+                <h1 class="billboard__header" lang="KZ">Балаларыңыздың болашағы</h1>
+                <p class="billboard__desc" lang="RU">В надежных руках</p>
+                <p class="billboard_desc" lang="KZ">Жақсы қолдарда</p>
+                <button class="form__btn" lang="RU"><a>Обратная связь</a></button>
+                <button class="form__btn" lang="KZ"><a>Кері байланыс</a></button>
+            </div>
+            <img src="{% static 'main_app/img/bear.png' %}" class="bear__img" alt="bear">
+        </section>
+        <section id="about__us">
+            <div class="tab__gallery">
+                <div class="expanded__container">
+                    <img src="{% static 'main_app/img/Sad1.jpg' %}" alt="Sad1.jpg" class="expanded__img">
+                </div>
+                <div class="row">
+                    <div class="column">
+                        <img src="{% static 'main_app/img/Sad1.jpg' %}" alt="Sad1.jpg">
+                    </div>
+                    <div class="column">
+                        <img src="{% static 'main_app/img/Sad2.jpg' %}" alt="Sad2.jpg">
+                    </div>
+                    <div class="column">
+                        <img src="{% static 'main_app/img/Sad3.jpg' %}" alt="Sad3.jpg">
+                    </div>
+                </div>
+            </div>
+            <div class="about__text">
+                <h1 class="about__title" lang="RU">О нас</h1>
+                <h1 class="about__title" lang="KZ">Біз туралы</h1>
+                <div class="lang__container">
+                    <p class="about__desc" lang="RU">
+                        «ЯслиСадСемьЯ» — частный детский сад в Алматы, ориентированный на бережное развитие детей
+                        раннего и
+                        дошкольного возраста. Мы создаём безопасную, тёплую и стабильную среду, в которой ребёнок
+                        чувствует
+                        себя частью семьи и развивается в собственном темпе.
+                        Наша работа основана на сочетании заботы, системного воспитания и развивающих методик. В центре
+                        внимания — здоровье, эмоциональное благополучие и формирование базовых навыков:
+                        самостоятельности,
+                        общения, мышления и речи.
+                        С детьми работают опытные воспитатели, которые выстраивают уважительное и внимательное
+                        взаимодействие с каждым ребёнком. Занятия проходят в малых группах, что позволяет учитывать
+                        индивидуальные особенности и потребности.
+                    </p>
+                </div>
+                <p class="about__desc" lang="KZ">
+                    «ЯслиСадСемьЯ» — Алматы қаласындағы жеке меншік балабақша, ол ерте жастағы және мектепке дейінгі
+                    жастағы балалардың жан-жақты әрі нәзік дамуына бағытталған. Біз баланың өзін отбасының бір мүшесі
+                    ретінде сезініп, өз қарқынымен дамуына мүмкіндік беретін қауіпсіз, жылы әрі тұрақты орта
+                    қалыптастырамыз.
+                    Біздің жұмысымыз қамқорлықты, жүйелі тәрбиені және дамытушы әдістемелерді үйлестіруге негізделген.
+                    Негізгі назар балалардың денсаулығына, эмоционалдық жай-күйіне және дербестік, қарым-қатынас, ойлау
+                    мен сөйлеу сияқты базалық дағдыларды қалыптастыруға аударылады.
+                    Балалармен тәжірибелі тәрбиешілер жұмыс істейді, олар әр балаға құрметпен және мұқият қарым-қатынас
+                    жасайды. Сабақтар шағын топтарда өткізіледі, бұл әр баланың жеке ерекшеліктері мен қажеттіліктерін
+                    ескеруге мүмкіндік береді.
+                </p>
+            </div>
+        </section>
+        <section id="teacher">
+            <div class="mySlides">
+                <div class="teacher__img">
+                    <img src="{% static 'main_app/img/teacher1.jpg' %}" alt="Татарникова Ирина Владимировна">
+                </div>
+                <div class="teacher__wrapper">
+                    <div class="teacher__text">
+                        <h1 class="teacher__name">Татарникова Ирина Владимировна</h1>
+                        <h2 class="teacher__job" lang="RU">Воспитатель</h2>
+                        <h2 class="teacher__job" lang="KZ">Тәрбиеші</h2>
+                        <p class="teacher__desc" lang="RU">Татарникова Ирина Владимировна — воспитатель с ответственным
+                            и
+                            внимательным
+                            подходом к работе с детьми раннего и дошкольного возраста. В своей деятельности она делает
+                            акцент на создании спокойной, безопасной и доброжелательной атмосферы, в которой каждый
+                            ребёнок
+                            чувствует себя уверенно и защищённо.
+                            Ирина Владимировна выстраивает работу с учётом возрастных и индивидуальных особенностей
+                            детей,
+                            уделяя внимание развитию речи, навыков общения, самостоятельности и эмоционального
+                            интеллекта.
+                            Занятия проходят в игровой форме, что способствует естественному познанию мира и устойчивому
+                            интересу к обучению.</p>
+                        <p class="teacher__desc" lang="KZ">Татарникова Ирина Владимировна - жауапты тәрбиеші және
+                            Мұқият
+                            ерте және мектеп жасына дейінгі балалармен жұмыс істеу тәсілі. Ол өз қызметінде
+                            әрқайсысы тыныш, қауіпсіз және мейірімді атмосфераны құруға баса назар аударыңыз
+                            бала
+                            өзін сенімді және қауіпсіз сезінеді.
+                            Ирина Владимировна жұмысты жас және жеке ерекшеліктерін ескере отырып жасайды
+                            балалар,
+                            сөйлеуді, қарым-қатынас дағдыларын, Тәуелсіздік пен эмоционалды дамуға назар аудару
+                            интеллект.
+                            Сабақтар ойын түрінде өтеді, бұл әлем туралы табиғи білім мен тұрақтылыққа ықпал етеді
+                            оқуға деген қызығушылық.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mySlides">
+                <div class="teacher__img">
+                    <img src="{% static 'main_app/img/teacher2.jpg' %}" alt="Труханова Анастасия Вячеславовна">
+                </div>
+                <div class="teacher__wrapper">
+                    <div class="teacher__text">
+                        <h1 class="teacher__name">Труханова Анастасия Вячеславовна</h1>
+                        <h2 class="teacher__job" lang="RU">Воспитатель</h2>
+                        <h2 class="teacher__job" lang="KZ">Тәрбиеші</h2>
+                        <p class="teacher__desc" lang="RU">Труханова Анастасия Вячеславовна — воспитатель с внимательным
+                            и
+                            доброжелательным отношением к детям дошкольного возраста. В своей работе создаёт спокойную и
+                            поддерживающую атмосферу, способствующую эмоциональному комфорту и уверенности ребёнка.
+                            Учитывает индивидуальные и возрастные особенности воспитанников, уделяет внимание развитию
+                            речи, мышления и навыков общения. Занятия выстраивает в игровой форме, стимулируя
+                            познавательный интерес и активность детей. Отличается терпением, ответственностью и умением
+                            выстраивать доверительные отношения с детьми и родителями.</p>
+                        <p class="teacher__desc" lang="KZ">Труханова Анастасия Вячеславовна-Мұқият тәрбиеші
+                            және
+                            мектеп жасына дейінгі балаларға мейірімді қарым-қатынас. Өз жұмысында тыныш және
+                            баланың эмоционалды жайлылығы мен сенімділігіне ықпал ететін қолдау атмосферасы.
+                            Оқушылардың жеке және жас ерекшеліктерін ескереді, дамуға назар аударады
+                            сөйлеу, ойлау және қарым-қатынас дағдылары. Сабақтарды ойын түрінде ұйымдастырады,
+                            ынталандырады
+                            балалардың танымдық қызығушылығы мен белсенділігі. Ол шыдамдылықпен, жауапкершілікпен және
+                            шеберлікпен ерекшеленеді
+                            балалармен және ата-аналармен сенімді қарым-қатынас орнату.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mySlides">
+                <div class="teacher__img">
+                    <img src="{% static 'main_app/img/teacher3.jpg' %}" alt="Попова Нина Сергеевна">
+                </div>
+                <div class="teacher__wrapper">
+                    <div class="teacher__text">
+                        <h1 class="teacher__name">Попова Нина Сергеевна</h1>
+                        <h2 class="teacher__job" lang="RU">Воспитатель</h2>
+                        <h2 class="teacher__job" lang="KZ">Тәрбиеші</h2>
+                        <p class="teacher__desc" lang="RU">Попова Нина Сергеевна — воспитатель с системным и
+                            ответственным
+                            подходом к образовательному процессу. Ставит целью всестороннее развитие ребёнка в условиях
+                            психологически комфортной и безопасной среды. Уделяет внимание формированию
+                            самостоятельности, дисциплины и социальных навыков. В работе использует игровые и
+                            развивающие методы, способствующие развитию внимания, памяти и речи. Отличается
+                            доброжелательностью, тактичностью и умением находить индивидуальный подход к каждому
+                            ребёнку.</p>
+                        <p class="teacher__desc" lang="KZ">Попова Нина Сергеевна-жүйелі және жауапты тәрбиеші
+                            білім беру процесіне көзқарас. Баланың жан-жақты дамуын мақсат етеді
+                            психологиялық тұрғыдан ыңғайлы және қауіпсіз орта. Қалыптастыруға назар аударады
+                            дербестік, тәртіп және әлеуметтік дағдылар. Жұмыста ойын және
+                            зейінді, есте сақтауды және сөйлеуді дамытуға ықпал ететін дамыту әдістері. Әр түрлі
+                            қайырымдылықпен, әдептілікпен және әрқайсысына жеке көзқарас таба білу
+                            бала.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mySlides">
+                <div class="teacher__img">
+                    <img src="{% static 'main_app/img/teacher4.jpg' %}" alt="Бенеш Людмила Владимировна">
+                </div>
+                <div class="teacher__wrapper">
+                    <div class="teacher__text">
+                        <h1 class="teacher__name">Бенеш Людмила Владимировна</h1>
+                        <h2 class="teacher__job" lang="RU">Воспитатель</h2>
+                        <h2 class="teacher__job" lang="KZ">Тәрбиеші</h2>
+                        <p class="teacher__desc" lang="RU">Бенеш Людмила Владимировна — воспитатель, ориентированный на
+                            гармоничное развитие личности ребёнка. В своей деятельности сочетает заботу,
+                            последовательность и творческий подход. Создаёт условия для развития познавательной
+                            активности, воображения и уверенности в себе. Большое значение придаёт формированию
+                            положительной мотивации к обучению и навыков общения в коллективе. Отличается
+                            внимательностью, терпением и устойчивым профессиональным подходом.</p>
+                        <p class="teacher__desc" lang="KZ">Бенеш Людмила Владимировна-тәрбиеші
+                            баланың жеке басының үйлесімді дамуы. Өз қызметінде қамқорлықты біріктіреді,
+                            жүйелілік және шығармашылық. Танымдық дамуға жағдай жасайды
+                            белсенділік, қиял және өзіне деген сенімділік. Қалыптастыруға үлкен мән береді
+                            ұжымда оқуға және қарым-қатынас дағдыларына оң мотивация. Әр түрлі
+                            зейінділікпен, шыдамдылықпен және тұрақты кәсіби тәсілмен.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mySlides">
+                <div class="teacher__img">
+                    <img src="{% static 'main_app/img/teacher5.jpg' %}" alt="Полуева Наталья Васильевна">
+                </div>
+                <div class="teacher__wrapper">
+                    <div class="teacher__text">
+                        <h1 class="teacher__name">Полуева Наталья Васильевна</h1>
+                        <h2 class="teacher__job" lang="RU">Воспитатель</h2>
+                        <h2 class="teacher__job" lang="KZ">Тәрбиеші</h2>
+                        <p class="teacher__desc" lang="RU">Полуева Наталья Васильевна — воспитатель с чутким и спокойным
+                            стилем
+                            работы. Основное внимание уделяет эмоциональному благополучию детей и их успешной адаптации
+                            в коллективе. Работает с учётом индивидуальных особенностей каждого ребёнка, развивает речь,
+                            моторику и навыки самостоятельности. Занятия проводит в доступной и игровой форме.
+                            Отличается терпением, заботливостью и ответственным отношением к своей профессии.</p>
+                        <p class="teacher__desc" lang="KZ">Полева Наталья Васильевна-сезімтал және сабырлы стилі бар
+                            тәрбиеші
+                            жұмыс. Балалардың эмоционалды әл-ауқатына және олардың сәтті бейімделуіне баса назар
+                            аударылады
+                            ұжымда. Әр баланың жеке ерекшеліктерін ескере отырып жұмыс істейді, сөйлеуді дамытады,
+                            моторика және Тәуелсіздік дағдылары. Сабақтарды қол жетімді және ойын түрінде өткізеді.
+                            Ол шыдамдылықпен, қамқорлықпен және өз кәсібіне жауапкершілікпен қарайды.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mySlides">
+                <div class="teacher__img">
+                    <img src="{% static 'main_app/img/teacher6.jpg' %}" alt="gallery1.jpg">
+                </div>
+                <div class="teacher__wrapper">
+                    <div class="teacher__text">
+                        <h1 class="teacher__name">Мамбетова Марал Абиловна</h1>
+                        <h2 class="teacher__job" lang="RU">Медицинская сестра</h2>
+                        <h2 class="teacher__job" lang="KZ">Мейірбике</h2>
+                        <p class="teacher__desc" lang="RU">Мамбетова Марал Абиловна — медицинская сестра, обеспечивающая
+                            контроль
+                            за состоянием здоровья воспитанников. В своей работе уделяет внимание профилактике
+                            заболеваний, соблюдению санитарно-гигиенических норм и ежедневному мониторингу самочувствия
+                            детей. Оказывает своевременную медицинскую помощь и ведёт взаимодействие с педагогами и
+                            родителями. Отличается внимательностью, аккуратностью и ответственным подходом к сохранению
+                            здоровья детей.</p>
+                        <p class="teacher__desc" lang="KZ">Мамбетова Марал Әбілқызы-бақылауды қамтамасыз ететін медбике
+                            тәрбиеленушілердің денсаулық жағдайы. Өз жұмысында профилактикаға назар аударады
+                            санитарлық-гигиеналық нормаларды сақтау және күнделікті әл-ауқат мониторингі
+                            балалар. Уақтылы медициналық көмек көрсетеді және педагогтармен және
+                            ата-аналар. Ол ұқыптылықпен, ұқыптылықпен және сақтауға жауапкершілікпен қарайды
+                            Балалардың денсаулығы.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mySlides">
+                <div class="teacher__img">
+                    <img src="{% static 'main_app/img/teacher7.jpg' %}" alt="gallery1.jpg">
+                </div>
+                <div class="teacher__wrapper">
+                    <div class="teacher__text">
+                        <h1 class="teacher__name">Манабаева Алина Нурлановна</h1>
+                        <h2 class="teacher__job" lang="RU">Методист</h2>
+                        <h2 class="teacher__job" lang="KZ">Әдіскер</h2>
+                        <p class="teacher__desc" lang="RU">Манабаева Алина Нурлановна — методист, учитель казахского
+                            языка,
+                            курирующая образовательный процесс в детском саду. Разрабатывает и внедряет методические
+                            программы с учётом возрастных особенностей детей. Обучение казахскому языку выстраивает в
+                            игровой и доступной форме, формируя интерес к языку и культуре. Отличается
+                            организованностью, профессионализмом и системным подходом к обучению.</p>
+                        <p class="teacher__desc" lang="KZ">Манабаева Алина Нұрланқызы-әдіскер, қазақ тілі мұғалімі,
+                            балабақшадағы білім беру процесін қадағалайды. Әдістемелік әзірлейді және енгізеді
+                            балалардың жас ерекшеліктерін ескере отырып бағдарламалар. Қазақ тілін оқыту
+                            тіл мен мәдениетке деген қызығушылықты қалыптастыра отырып, ойын және қол жетімді түрде. Әр
+                            түрлі
+                            ұйымдастырушылық, кәсібилік және оқытуға жүйелі көзқарас.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mySlides">
+                <div class="teacher__img">
+                    <img src="{% static 'main_app/img/teacher8.jpg' %}" alt="gallery1.jpg">
+                </div>
+                <div class="teacher__wrapper">
+                    <div class="teacher__text">
+                        <h1 class="teacher__name">Сапронова Наталья Николаевна</h1>
+                        <h2 class="teacher__job" lang="RU">Заведующая</h2>
+                        <h2 class="teacher__job" lang="KZ">Меңгерушісі</h2>
+
+                        <p class="teacher__desc" lang="RU">Сапронова Наталья Николаевна — заведующая детским садом,
+                            обеспечивающая
+                            общее руководство и развитие учреждения. Организует работу коллектива, контролирует качество
+                            образовательного процесса и безопасность условий пребывания детей. Уделяет внимание
+                            профессиональному росту сотрудников и взаимодействию с родителями. Отличается
+                            ответственностью, управленческой компетентностью и ориентированностью на устойчивое развитие
+                            детского сада.</p>
+                        <p class="teacher__desc" lang="KZ">Сапронова Наталья Николаевна - балабақша меңгерушісі
+                            мекеменің жалпы басшылығы және дамуы. Ұжымның жұмысын ұйымдастырады, сапасын бақылайды
+                            білім беру процесі және балалардың болу жағдайларының қауіпсіздігі. Назар аударады
+                            қызметкерлердің кәсіби өсуі және ата-аналармен өзара іс-қимыл. Әр түрлі
+                            жауапкершілігі, басқарушылық құзыреттілігі және тұрақты дамуға бағдарлануы
+                            балабақша.</p>
+                    </div>
+                </div>
+            </div>
+            <a class="prev">&#10094;</a>
+            <a class="next">&#10095;</a>
+        </section>
+        <section id="groups">
+            <div class="group__card">
+                <h1 class="group__title" lang="RU">Младшая группа</h1>
+                <h1 class="group__title" lang="KZ">Кіші топ</h1>
+                <h2 class="group__age" lang="RU">Возраст: 2-3 года</h2>
+                <h2 class="group__age" lang="KZ">Жасы: 2-3 жас</h2>
+                <p class="group__desc" lang="RU">
+                    Основное внимание уделяется адаптации к детскому саду,
+                    формированию чувства безопасности и доверия.
+                    Развиваются первые навыки самообслуживания,
+                    речь, моторика и эмоциональное восприятие.
+                    Все занятия проходят в игровой и щадящей форме</p>
+                <p class="group__desc" lang="KZ">
+                    Балабақшаға бейімделуге басты назар аударылады,
+                    қауіпсіздік пен сенімділік сезімін дамыту.
+                    Ерте өзін-өзі күту дағдылары,
+                    сөйлеу, моторика және эмоционалды қабылдау дамиды.
+                    Барлық сабақтар ойнақы және жұмсақ түрде өтеді.</p>
+            </div>
+            <div class="group__card">
+                <h1 class="group__title" lang="RU">Средняя группа</h1>
+                <h1 class="group__title" lang="KZ">Ортаңғы топ</h1>
+                <h2 class="group__age" lang="RU">Возраст: 3–4 года</h2>
+                <h2 class="group__age" lang="KZ">Жасы: 3-4 жас</h2>
+                <p class="group__desc" lang="RU">
+                    Развиваются речь, внимание, память и воображение. Формируются навыки общения со сверстниками и
+                    взрослыми, умение соблюдать правила и участвовать в совместной деятельности. Занятия направлены на
+                    расширение кругозора и развитие интереса к познанию.</p>
+                <p class="group__desc" lang="KZ">
+                    Сөйлеу, зейін, есте сақтау, қиялдау дамиды. Құрдастарымен және ересектермен қарым-қатынас дағдылары,
+                    ережелерді сақтау және бірлескен іс-әрекеттерге қатысу қабілеттері дамиды. Сабақтар балалардың
+                    ой-өрісін кеңейтуге және оқуға деген құштарлығын арттыруға бағытталған.</p>
+            </div>
+            <div class="group__card">
+                <h1 class="group__title" lang="RU">Старшая группа</h1>
+                <h1 class="group__title" lang="KZ">Аға топ</h1>
+                <h2 class="group__age" lang="RU">Возраст: 4–5 лет</h2>
+                <h2 class="group__age" lang="KZ">Жасы: 4-5 жас</h2>
+                <p class="group__desc" lang="RU">
+                    Развитие познавательной активности, самостоятельности и ответственности. Углубляется работа с речью,
+                    математическими представлениями, логикой и творчеством. Дети учатся анализировать, выражать мысли,
+                    выполнять задания по инструкции и доводить начатое до конца</p>
+                <p class="group__desc" lang="KZ">
+                    Танымдық белсенділігін, дербестігін, жауапкершілігін дамыту. Сөйлеумен жұмыс, математикалық ұғымдар,
+                    логика, шығармашылық қабілеттері артады. Балалар талдауды, ойларын жеткізуді, нұсқауларға сәйкес
+                    тапсырмаларды орындауды және істің соңына дейін көруді үйренеді.</p>
+            </div>
+            <div class="group__card">
+                <h1 class="group__title" lang="RU">Подготовительная группа</h1>
+                <h1 class="group__title" lang="KZ">Дайындық тобы</h1>
+                <h2 class="group__age" lang="RU">Возраст: 5–6 лет</h2>
+                <h2 class="group__age" lang="KZ">Жасы: 5-6 жас</h2>
+                <p class="group__desc" lang="RU">
+                    Цель — подготовка к школе. Формируются навыки чтения, письма, счёта, развивается усидчивость и
+                    самоконтроль. Особое внимание уделяется учебной мотивации, уверенности в себе и готовности к
+                    школьной нагрузке как интеллектуально, так и психологически</p>
+                <p class="group__desc" lang="KZ">
+                    Мақсаты – балаларды мектепке дайындау. Оқу, жазу, есептеу дағдылары дамып, табандылық пен өзін-өзі
+                    бақылауға тәрбиеленеді. Оқу мотивациясына, өзіне деген сенімділігіне, интеллектуалдық және
+                    психологиялық тұрғыдан мектеп жүктемесіне дайын болуына ерекше көңіл бөлінеді.</p>
+            </div>
+        </section>
+        <section id="gallery">
+            <div class="gallery__wrapper">
+                {% for num in gallery_range %}
+                <figure class="gallery__item">
+                    <img src="{% static 'main_app/img/gallery' %}{{ num }}.jpg" alt="gallery{{ num }}.jpg">
+                </figure>
+                {% endfor %}
+            </div>
+            <dialog id="showImage">
+                <img src="./" alt="">
+                <span class="close">&times;</span>
+            </dialog>
+        </section>
+        <section id="videos">
+            <video controls width="350" height="300">
+                <source src="{% static 'main_app/videos/короткий 1.mp4' %}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <video controls width="350" height="300">
+                <source src="{% static 'main_app/videos/короткий 1.mp4' %}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <video controls width="350" height="300">
+                <source src="{% static 'main_app/videos/короткий 2.mp4' %}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </section>
+        <footer class="footer__container">
+            <div class="logo__container">
+                <h1 class="logo__title">ЯслиСадСемьЯ</h1>
+                <h2 class="sub__title" lang="RU">ТОО "Орион ", ясли-сад СемьЯ", работает с 2021 года</h2>
+                <h2 class="sub__title" lang="KZ">"Орион" ЖШС, балабақша отбасы", 2021 жылдан бастап жұмыс істейді</h2>
+
+            </div>
+            <div class="contact__container">
+                <h2 class="schedule" lang="RU">Режим работы с 7.00 до 17.30</h2>
+                <h2 class="schedule" lang="KZ">Жұмыс режимі 7.00-ден 17.30-ға дейін</h2>
+                <h2 class="schedule__break" lang="RU">Суббота, воскресенье и праздничные дни - не работаем</h2>
+                <h2 class="schedule__break" lang="KZ">Сенбі, жексенбі және мереке күндері-біз жұмыс істемейміз</h2>
+
+                <h2 class="contact__info" lang="RU">Контакты: <a href="tel:+77011633599">+77011633599</a>, <a
+                        href="mailto:Too_orion2021@mail.ru">Too_orion2021@mail.ru</a></h2>
+                <h2 class="contact__info" lang="KZ">Байланыс: <a href="tel:+77011633599">+77011633599</a>, <a
+                        href="mailto:Too_orion2021@mail.ru">Too_orion2021@mail.ru</a></h2>
+            </div>
+        </footer>
+    </main>
+    <dialog id="showForm">
+        <h1 class="form__title" lang="RU">Контакты</h1>
+        <h1 class="form__title" lang="KZ">Байланыс</h1>
+        <form action="#">
+            <h2 class="precaution" lang="RU">Пожалуйста заполните все обязательные поля(<span class="required">*</span>)
+            </h2>
+            <h2 class="precaution" lang="KZ">Барлық міндетті өрістерді толтырыңыз(<span class="required">*</span>)</h2>
+            <div class="field__container">
+                <label for="first__name" lang="RU">Имя:</label>
+                <label for="first__name" lang="KZ">Аты:</label>
+                <input type="text" name="first__name" id="first__name">
+            </div>
+            <div class="field__container">
+                <label for="second__name" lang="RU">Фамилия:</label>
+                <label for="second__name" lang="KZ">Тегі:</label>
+                <input type="text" name="second__name" id="second__name">
+            </div>
+            <div class="field__container">
+                <label for="telephone" lang="RU">Телефон<span class="required">*</span>:</label>
+                <label for="telephone" lang="KZ">Телефон<span class="required">*</span>:</label>
+                <input type="telephone" name="telephone" id="telephone">
+            </div>
+            <div class="field__container">
+                <label for="email" lang="RU">Почта<span class="required">*</span>:</label>
+                <label for="email" lang="KZ">Пошта<span class="required">*</span>:</label>
+                <input type="email" name="email" id="email">
+            </div>
+            <button type="submit" lang="RU">Отправить</button>
+            <button type="submit" lang="KZ">Жіберу</button>
+        </form>
+        <span class="close">&times;</span>
+    </dialog>
+    <script src="{% static 'main_app/js/aboutUs.js' %}"></script>
+    <script src="{% static 'main_app/js/teacherCarousel.js' %}"></script>
+    <script src="{% static 'main_app/js/gallery.js' %}"></script>
+    <script src="{% static 'main_app/js/form.js' %}"></script>
+</body>
+
+</html>
