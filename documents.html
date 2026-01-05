@@ -1,0 +1,250 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Документы | Ясли-сад Семья</title>
+    <link rel="stylesheet" href="{% static 'main_app/css/style.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            background-color: var(--main-color);
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+            font-family: sans-serif;
+        }
+
+        .docs-section {
+            padding: 40px 0;
+            min-height: 100vh;
+        }
+
+
+        /* Стилизация фильтра */
+        .filter-wrapper {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 30px;
+        }
+
+        .filter-box {
+            background: var(--second-color);
+            padding: 10px 20px;
+            border-radius: 15px;
+            border: 2px solid var(--header-color);
+            /* Голубая рамка */
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .filter-box label {
+            margin-right: 12px;
+            font-weight: bold;
+            color: var(--header-color);
+        }
+
+        .filter-box select {
+            border: none;
+            outline: none;
+            font-weight: bold;
+            color: var(--text-color);
+            background: transparent;
+            cursor: pointer;
+        }
+
+        .doc-card {
+            background: var(--second-color);
+            border-radius: 25px;
+            overflow: hidden;
+            border: 1px solid var(--header-color);
+            margin-bottom: 40px;
+            box-shadow: 0 10px 25px rgba(118, 187, 247, 0.2);
+            /* Убеждаемся, что внутри карточки нет лишних отступов */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .preview-area {
+            width: 100%;
+            height: 850px;
+            /* Увеличил высоту для лучшего обзора */
+            background: #525659;
+            margin: 0;
+            padding: 0;
+            line-height: 0;
+            /* Убирает микро-отступ снизу */
+        }
+
+        .preview-area iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        .doc-info {
+            padding: 25px;
+            text-align: center;
+        }
+
+        .category-label {
+            display: inline-block;
+            background: var(--main-color);
+            color: var(--second-color);
+            padding: 6px 18px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .doc-name {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: var(--text-color);
+        }
+
+        /* Кнопка в розовом цвете акцента */
+        .btn-download {
+            display: inline-block;
+            background: var(--accent-color);
+            color: var(--second-color);
+            padding: 14px 40px;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 111, 145, 0.3);
+        }
+
+        .btn-download:hover {
+            background: #ff557d;
+            /* Чуть темнее розовый */
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 111, 145, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .glass-container {
+                width: 92%;
+                padding: 20px;
+                border-radius: 25px;
+            }
+
+            .filter-wrapper {
+                justify-content: center;
+            }
+
+            .preview-area {
+                height: 65vh;
+            }
+
+            .doc-name {
+                font-size: 1.2rem;
+            }
+
+            .header__container .burger__checkbox:checked~.anchor__container.upper {
+                transform: translateY(-6px);
+                border-radius: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="main__container">
+        <header class="header__container">
+            <div class="upper__container">
+                <h1 class="header__title">ЯслиСадСемьЯ</h1>
+                <input type="checkbox" id="burger__checkbox" class="burger__checkbox">
+                <label for="burger__checkbox" class="burger"></label>
+                <ul class="anchor__container upper">
+                    <li class="anchor__item">
+                        <a href="{% url 'index' %}" lang="RU">Главная</a>
+                        <a href="{% url 'index' %}" lang="KZ">Үй</a>
+                    </li>
+                    <li class="anchor__item">
+                        <a href="{% url 'index' %}#about__us" lang="RU">О нас</a>
+                        <a href="{% url 'index' %}#about__us" lang="KZ">Біз туралы</a>
+                    </li>
+                    <li class="anchor__item">
+                        <a href="{% url 'index' %}#teacher" lang="RU">Воспитатели</a>
+                        <a href="{% url 'index' %}#teacher" lang="KZ">Тәрбиешілер</a>
+                    </li>
+                    <li class="anchor__item">
+                        <a href="{% url 'index' %}#groups" lang="RU">Группы</a>
+                        <a href="{% url 'index' %}#groups" lang="KZ">Топтар</a>
+                    </li>
+                    <li class="anchor__item">
+                        <a href="{% url 'index' %}#gallery" lang="RU">Галерея</a>
+                        <a href="{% url 'index' %}#gallery" lang="KZ">Галерея</a>
+                    </li>
+                    <li class="anchor__item switcher">
+                        <p>RU</p>
+                        <label class="switch" for="switch">
+                            <input type="checkbox" id="switch">
+                            <span class="slider round"></span>
+                        </label>
+                        <p>KZ</p>
+                    </li>
+                </ul>
+            </div>
+        </header>
+        <section class="docs-section">
+            <div class="glass-container">
+
+                <div class="filter-wrapper">
+                    <div class="filter-box">
+                        <label for="category-filter">Раздел:</label>
+                        <select id="category-filter" onchange="filterDocs()">
+                            <option value="all">Все документы</option>
+                            {% for category in categories %}
+                            <option value="cat-{{ category.id }}">{{ category.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="doc-list">
+                    {% for category in categories %}
+                    {% for doc in category.documents.all %}
+                    <div class="doc-card item-to-filter cat-{{ category.id }}">
+                        <div class="preview-area">
+                            <iframe src="{{ doc.file.url }}#toolbar=0&view=FitH" loading="lazy"></iframe>
+                        </div>
+                        <div class="doc-info">
+                            <span class="category-label">{{ category.name }}</span>
+                            <span class="doc-name">{{ doc.title }}</span>
+                            <a href="{{ doc.file.url }}" target="_blank" class="btn-download">Открыть</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function filterDocs() {
+            const val = document.getElementById('category-filter').value;
+            const items = document.querySelectorAll('.item-to-filter');
+
+            items.forEach(item => {
+                if (val === 'all' || item.classList.contains(val)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
