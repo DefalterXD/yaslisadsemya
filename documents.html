@@ -17,6 +17,13 @@
             font-family: sans-serif;
         }
 
+        .main__container {
+            display: grid;
+            align-content: space-around;
+            color: var(--text-color);
+            width: max(100% - 70dvw, 70%);
+        }
+
         .docs-section {
             padding: 40px 0;
             min-height: 100vh;
@@ -97,14 +104,14 @@
             color: var(--second-color);
             padding: 6px 18px;
             border-radius: 25px;
-            font-size: 0.85rem;
+            font-size: 1.5rem;
             font-weight: bold;
             margin-bottom: 12px;
         }
 
         .doc-name {
             display: block;
-            font-size: 1.5rem;
+            font-size: 2rem;
             font-weight: bold;
             margin-bottom: 20px;
             color: var(--text-color);
@@ -119,7 +126,7 @@
             border-radius: 15px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 1.1rem;
+            font-size: 1rem;
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(255, 111, 145, 0.3);
         }
