@@ -78,26 +78,6 @@
             background: #525659;
             margin: 0;
             padding: 0;
-            position: relative;
-        }
-
-        /* Заглушка для Excel */
-        .excel-placeholder {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: #217346;
-            color: white;
-            text-align: center;
-            padding: 20px;
-        }
-
-        .excel-placeholder img {
-            width: 100px;
-            margin-bottom: 20px;
-            filter: brightness(0) invert(1);
         }
 
         .preview-area iframe {
@@ -204,12 +184,9 @@
                         {% for doc in category.documents.all %}
                             <div class="doc-card item-to-filter cat-{{ category.id }}">
                                 <div class="preview-area">
-                                    {% if ".xlsx" in doc.file.url|lower or ".xls" in doc.file.url|lower %}
-                                        <div class="excel-placeholder">
-                                            <img src="https://cdn-icons-png.flaticon.com/512/732/732220.png" alt="Excel">
-                                            <h3>{{ doc.title }}</h3>
-                                            <p>Excel-таблица (Просмотр недоступен, скачайте файл)</p>
-                                        </div>
+                                    {% if ".xls" in doc.file.url|lower %}
+                                        {# Способ 1: Просмотрщик Google Docs для Excel #}
+                                        <iframe src="https://docs.google.com/viewer?url=https://yaslisadsemya.kz{{ doc.file.url }}&embedded=true" loading="lazy"></iframe>
                                     {% else %}
                                         <iframe src="{{ doc.file.url }}#toolbar=0&view=FitH" loading="lazy"></iframe>
                                     {% endif %}
@@ -218,7 +195,7 @@
                                     <span class="category-label">{{ category.name }}</span>
                                     <span class="doc-name">{{ doc.title }}</span>
                                     <a href="{{ doc.file.url }}" target="_blank" class="btn-download">
-                                        {% if ".xlsx" in doc.file.url|lower %} Скачать EXCEL {% else %} Открыть PDF {% endif %}
+                                        {% if ".xls" in doc.file.url|lower %} Скачать Excel {% else %} Открыть PDF {% endif %}
                                     </a>
                                 </div>
                             </div>
@@ -229,12 +206,8 @@
                             {% for doc in subcategory.documents.all %}
                                 <div class="doc-card item-to-filter cat-{{ category.id }}">
                                     <div class="preview-area">
-                                        {% if ".xlsx" in doc.file.url|lower or ".xls" in doc.file.url|lower %}
-                                            <div class="excel-placeholder">
-                                                <img src="https://cdn-icons-png.flaticon.com/512/732/732220.png" alt="Excel">
-                                                <h3>{{ doc.title }}</h3>
-                                                <p>Excel-таблица (Скачайте для просмотра)</p>
-                                            </div>
+                                        {% if ".xls" in doc.file.url|lower %}
+                                            <iframe src="https://docs.google.com/viewer?url=https://yaslisadsemya.kz{{ doc.file.url }}&embedded=true" loading="lazy"></iframe>
                                         {% else %}
                                             <iframe src="{{ doc.file.url }}#toolbar=0&view=FitH" loading="lazy"></iframe>
                                         {% endif %}
@@ -243,7 +216,7 @@
                                         <span class="category-label">{{ subcategory.name }}</span>
                                         <span class="doc-name">{{ doc.title }}</span>
                                         <a href="{{ doc.file.url }}" target="_blank" class="btn-download">
-                                            {% if ".xlsx" in doc.file.url|lower %} Скачать EXCEL {% else %} Открыть PDF {% endif %}
+                                            {% if ".xls" in doc.file.url|lower %} Скачать Excel {% else %} Открыть PDF {% endif %}
                                         </a>
                                     </div>
                                 </div>
