@@ -30,6 +30,29 @@
             min-height: 100vh;
         }
 
+        /* Заголовки уровней */
+        .category-header {
+            font-size: 2.2rem;
+            color: var(--header-color);
+            margin: 40px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--accent-color);
+        }
+
+        .subcategory-header {
+            font-size: 1.6rem;
+            color: var(--text-color);
+            margin: 30px 0 20px 30px;
+            display: flex;
+            align-items: center;
+        }
+
+        .subcategory-header::before {
+            content: "∟";
+            margin-right: 10px;
+            color: var(--accent-color);
+        }
+
         .filter-wrapper {
             display: flex;
             justify-content: flex-end;
@@ -66,10 +89,15 @@
             border-radius: 25px;
             overflow: hidden;
             border: 1px solid var(--header-color);
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             box-shadow: 0 10px 25px rgba(118, 187, 247, 0.2);
             display: flex;
             flex-direction: column;
+        }
+
+        /* Контейнер для отступа контента подкатегории */
+        .subcategory-content {
+            margin-left: 30px;
         }
 
         .preview-area {
@@ -90,17 +118,6 @@
         .doc-info {
             padding: 25px;
             text-align: center;
-        }
-
-        .category-label {
-            display: inline-block;
-            background: var(--main-color);
-            color: var(--second-color);
-            padding: 6px 18px;
-            border-radius: 25px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 12px;
         }
 
         .doc-name {
@@ -134,6 +151,7 @@
             .main__container { width: 95%; }
             .preview-area { height: 500px; }
             .doc-name { font-size: 1.2rem; }
+            .subcategory-content, .subcategory-header { margin-left: 10px; }
         }
     </style>
 </head>
@@ -177,43 +195,22 @@
                     </div>
                 </div>
 
-                <div class="doc-list">
+                <div class="main-doc-list">
                     {% for category in categories %}
-                        
-                        {# 1. Документы основной категории #}
-                        {% for doc in category.documents.all %}
-                            <div class="doc-card item-to-filter cat-{{ category.id }}">
-                                <div class="preview-area">
-                                    {% if ".xls" in doc.file.url|lower %}
-                                        {# Способ 1: Просмотрщик Google Docs для Excel #}
-                                        <iframe src="https://docs.google.com/viewer?url=https://yaslisadsemya.kz{{ doc.file.url }}&embedded=true" loading="lazy"></iframe>
-                                    {% else %}
-                                        <iframe src="{{ doc.file.url }}#toolbar=0&view=FitH" loading="lazy"></iframe>
-                                    {% endif %}
-                                </div>
-                                <div class="doc-info">
-                                    <span class="category-label">{{ category.name }}</span>
-                                    <span class="doc-name">{{ doc.title }}</span>
-                                    <a href="{{ doc.file.url }}" target="_blank" class="btn-download">
-                                        {% if ".xls" in doc.file.url|lower %} Скачать Excel {% else %} Открыть PDF {% endif %}
-                                    </a>
-                                </div>
-                            </div>
-                        {% endfor %}
-
-                        {# 2. Документы подкатегорий #}
-                        {% for subcategory in category.subcategories.all %}
-                            {% for doc in subcategory.documents.all %}
-                                <div class="doc-card item-to-filter cat-{{ category.id }}">
+                        <div class="category-wrapper item-to-filter cat-{{ category.id }}">
+                            <h2 class="category-header">{{ category.name }}</h2>
+                            
+                            {# Документы основной категории #}
+                            {% for doc in category.documents.all %}
+                                <div class="doc-card">
                                     <div class="preview-area">
                                         {% if ".xls" in doc.file.url|lower %}
-                                            <iframe src="https://docs.google.com/viewer?url=https://yaslisadsemya.kz{{ doc.file.url }}&embedded=true" loading="lazy"></iframe>
+                                            <iframe src="https://docs.google.com/viewer?url=http://{{ request.get_host }}{{ doc.file.url }}&embedded=true" loading="lazy"></iframe>
                                         {% else %}
                                             <iframe src="{{ doc.file.url }}#toolbar=0&view=FitH" loading="lazy"></iframe>
                                         {% endif %}
                                     </div>
                                     <div class="doc-info">
-                                        <span class="category-label">{{ subcategory.name }}</span>
                                         <span class="doc-name">{{ doc.title }}</span>
                                         <a href="{{ doc.file.url }}" target="_blank" class="btn-download">
                                             {% if ".xls" in doc.file.url|lower %} Скачать Excel {% else %} Открыть PDF {% endif %}
@@ -221,8 +218,31 @@
                                     </div>
                                 </div>
                             {% endfor %}
-                        {% endfor %}
 
+                            {# Подкатегории и их документы #}
+                            {% for subcategory in category.subcategories.all %}
+                                <h3 class="subcategory-header">{{ subcategory.name }}</h3>
+                                <div class="subcategory-content">
+                                    {% for doc in subcategory.documents.all %}
+                                        <div class="doc-card">
+                                            <div class="preview-area">
+                                                {% if ".xls" in doc.file.url|lower %}
+                                                    <iframe src="https://docs.google.com/viewer?url=http://{{ request.get_host }}{{ doc.file.url }}&embedded=true" loading="lazy"></iframe>
+                                                {% else %}
+                                                    <iframe src="{{ doc.file.url }}#toolbar=0&view=FitH" loading="lazy"></iframe>
+                                                {% endif %}
+                                            </div>
+                                            <div class="doc-info">
+                                                <span class="doc-name">{{ doc.title }}</span>
+                                                <a href="{{ doc.file.url }}" target="_blank" class="btn-download">
+                                                    {% if ".xls" in doc.file.url|lower %} Скачать Excel {% else %} Открыть PDF {% endif %}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% endfor %}
+                        </div>
                     {% endfor %}
                 </div>
             </div>
@@ -236,7 +256,7 @@
 
             items.forEach(item => {
                 if (val === 'all' || item.classList.contains(val)) {
-                    item.style.display = 'flex';
+                    item.style.display = 'block';
                 } else {
                     item.style.display = 'none';
                 }
