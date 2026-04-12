@@ -120,6 +120,34 @@
             text-align: center;
         }
 
+        .labels-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .label-main {
+            background: var(--header-color); /* Темнее */
+            color: white;
+            padding: 5px 15px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .label-sub {
+            background: var(--accent-color); /* Розовый/Яркий */
+            color: white;
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
         .doc-name {
             display: block;
             font-size: 1.8rem;
@@ -209,54 +237,51 @@
 
                 <div class="doc-list">
                     {% for category in categories %}
-
-                    {# 1. Документы напрямую в категории #}
+                    
+                    {# 1. Файлы в основной категории #}
                     {% for doc in category.documents.all %}
-                    <div class="doc-card item-to-filter cat-{{ category.id }}">
-                        <div class="preview-area">
-                            {% if ".xls" in doc.file.url|lower %}
-                            <iframe
-                                src="https://docs.google.com/viewer?url=https://{{ request.get_host }}{{ doc.file.url }}&embedded=true&hl=ru"
-                                loading="lazy"></iframe>
-                            {% else %}
-                            <iframe src="{{ doc.file.url }}#toolbar=0&view=FitH"></iframe>
-                            {% endif %}
+                        <div class="doc-card item-to-filter cat-{{ category.id }}">
+                            <div class="preview-area">
+                                {% if ".xls" in doc.file.url|lower %}
+                                    <iframe src="https://view.officeapps.live.com/op/view.aspx?src=https://{{ request.get_host }}{{ doc.file.url|urlencode }}" loading="lazy"></iframe>
+                                {% else %}
+                                    <iframe src="{{ doc.file.url }}#toolbar=0&view=FitH"></iframe>
+                                {% endif %}
+                            </div>
+                            <div class="doc-info">
+                                <div class="labels-container">
+                                    <span class="label-main">{{ category.name }}</span>
+                                </div>
+                                <span class="doc-name">{{ doc.title }}</span>
+                                <a href="{{ doc.file.url }}" target="_blank" class="btn-download">Открыть файл</a>
+                            </div>
                         </div>
-                        <div class="doc-info">
-                            <span class="category-label">{{ category.name }}</span>
-                            <span class="doc-name">{{ doc.title }}</span>
-                            <a href="{{ doc.file.url }}" target="_blank" class="btn-download">
-                                {% if ".xls" in doc.file.url|lower %} Скачать Excel {% else %} Открыть PDF {% endif %}
-                            </a>
-                        </div>
-                    </div>
                     {% endfor %}
 
-                    {# 2. Документы в подкатегориях этой категории #}
+                    {# 2. Файлы в подкатегориях #}
                     {% for sub in category.subcategories.all %}
-                    {% for doc in sub.documents.all %}
-                    <div class="doc-card item-to-filter cat-{{ category.id }}">
-                        <div class="preview-area">
-                            {% if ".xls" in doc.file.url|lower %}
-                            <iframe
-                                src="https://docs.google.com/viewer?url=https://{{ request.get_host }}{{ doc.file.url }}&embedded=true&hl=ru"
-                                loading="lazy"></iframe>
-                            {% else %}
-                            <iframe src="{{ doc.file.url }}#toolbar=0&view=FitH"></iframe>
-                            {% endif %}
-                        </div>
-                        <div class="doc-info">
-                            <span class="category-label">{{ category.name }} &rarr; {{ sub.name }}</span>
-                            <span class="doc-name">{{ doc.title }}</span>
-                            <a href="{{ doc.file.url }}" target="_blank" class="btn-download">
-                                {% if ".xls" in doc.file.url|lower %} Скачать Excel {% else %} Открыть PDF {% endif %}
-                            </a>
-                        </div>
-                    </div>
-                    {% endfor %}
+                        {% for doc in sub.documents.all %}
+                            <div class="doc-card item-to-filter cat-{{ category.id }}">
+                                <div class="preview-area">
+                                    {% if ".xls" in doc.file.url|lower %}
+                                        <iframe src="https://view.officeapps.live.com/op/view.aspx?src=https://{{ request.get_host }}{{ doc.file.url|urlencode }}" loading="lazy"></iframe>
+                                    {% else %}
+                                        <iframe src="{{ doc.file.url }}#toolbar=0&view=FitH"></iframe>
+                                    {% endif %}
+                                </div>
+                                <div class="doc-info">
+                                    <div class="labels-container">
+                                        <span class="label-main">{{ category.name }}</span>
+                                        <span class="label-sub">{{ sub.name }}</span>
+                                    </div>
+                                    <span class="doc-name">{{ doc.title }}</span>
+                                    <a href="{{ doc.file.url }}" target="_blank" class="btn-download">Открыть файл</a>
+                                </div>
+                            </div>
+                        {% endfor %}
                     {% endfor %}
 
-                    {% endfor %}
+                {% endfor %}
                 </div>
         </section>
     </main>
