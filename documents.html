@@ -30,33 +30,12 @@
             min-height: 100vh;
         }
 
-        /* Заголовки уровней */
-        .category-header {
-            font-size: 2.2rem;
-            color: var(--header-color);
-            margin: 40px 0 20px 0;
-            padding-bottom: 10px;
-            border-bottom: 3px solid var(--accent-color);
-        }
-
-        .subcategory-header {
-            font-size: 1.6rem;
-            color: var(--text-color);
-            margin: 30px 0 20px 30px;
-            display: flex;
-            align-items: center;
-        }
-
-        .subcategory-header::before {
-            content: "∟";
-            margin-right: 10px;
-            color: var(--accent-color);
-        }
-
         .filter-wrapper {
             display: flex;
             justify-content: flex-end;
+            gap: 15px;
             margin-bottom: 30px;
+            flex-wrap: wrap;
         }
 
         .filter-box {
@@ -73,6 +52,7 @@
             margin-right: 12px;
             font-weight: bold;
             color: var(--header-color);
+            white-space: nowrap;
         }
 
         .filter-box select {
@@ -82,6 +62,7 @@
             color: var(--text-color);
             background: transparent;
             cursor: pointer;
+            min-width: 150px;
         }
 
         .doc-card {
@@ -93,11 +74,6 @@
             box-shadow: 0 10px 25px rgba(118, 187, 247, 0.2);
             display: flex;
             flex-direction: column;
-        }
-
-        /* Контейнер для отступа контента подкатегории */
-        .subcategory-content {
-            margin-left: 30px;
         }
 
         .preview-area {
@@ -129,7 +105,7 @@
         }
 
         .label-main {
-            background: var(--header-color); /* Темнее */
+            background: var(--header-color);
             color: white;
             padding: 5px 15px;
             border-radius: 10px;
@@ -140,7 +116,7 @@
         }
 
         .label-sub {
-            background: var(--accent-color); /* Розовый/Яркий */
+            background: var(--accent-color);
             color: white;
             padding: 4px 12px;
             border-radius: 8px;
@@ -176,22 +152,10 @@
         }
 
         @media (max-width: 768px) {
-            .main__container {
-                width: 95%;
-            }
-
-            .preview-area {
-                height: 500px;
-            }
-
-            .doc-name {
-                font-size: 1.2rem;
-            }
-
-            .subcategory-content,
-            .subcategory-header {
-                margin-left: 10px;
-            }
+            .main__container { width: 95%; }
+            .preview-area { height: 500px; }
+            .doc-name { font-size: 1.2rem; }
+            .filter-wrapper { justify-content: center; }
         }
     </style>
 </head>
@@ -225,11 +189,23 @@
             <div class="glass-container">
                 <div class="filter-wrapper">
                     <div class="filter-box">
-                        <label for="category-filter">Раздел:</label>
-                        <select id="category-filter" onchange="filterDocs()">
-                            <option value="all">Все документы</option>
+                        <label for="main-filter">Раздел:</label>
+                        <select id="main-filter" onchange="updateSubFilter()">
+                            <option value="all">Все разделы</option>
                             {% for category in categories %}
                             <option value="cat-{{ category.id }}">{{ category.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="filter-box">
+                        <label for="sub-filter">Подраздел:</label>
+                        <select id="sub-filter" onchange="filterDocs()">
+                            <option value="all" data-parent="all">Все подразделы</option>
+                            {% for category in categories %}
+                                {% for sub in category.subcategories.all %}
+                                <option value="sub-{{ sub.id }}" data-parent="cat-{{ category.id }}" style="display:none;">{{ sub.name }}</option>
+                                {% endfor %}
                             {% endfor %}
                         </select>
                     </div>
@@ -238,9 +214,9 @@
                 <div class="doc-list">
                     {% for category in categories %}
                     
-                    {# 1. Файлы в основной категории #}
-                    {% for doc in category.documents.all %}
-                        <div class="doc-card item-to-filter cat-{{ category.id }}">
+                        {# 1. Файлы в основной категории #}
+                        {% for doc in category.documents.all %}
+                        <div class="doc-card item-to-filter cat-{{ category.id }} sub-all">
                             <div class="preview-area">
                                 {% if ".xls" in doc.file.url|lower %}
                                     <iframe src="https://view.officeapps.live.com/op/view.aspx?src=https://{{ request.get_host }}{{ doc.file.url|urlencode }}" loading="lazy"></iframe>
@@ -256,12 +232,12 @@
                                 <a href="{{ doc.file.url }}" target="_blank" class="btn-download">Открыть файл</a>
                             </div>
                         </div>
-                    {% endfor %}
+                        {% endfor %}
 
-                    {# 2. Файлы в подкатегориях #}
-                    {% for sub in category.subcategories.all %}
-                        {% for doc in sub.documents.all %}
-                            <div class="doc-card item-to-filter cat-{{ category.id }}">
+                        {# 2. Файлы в подкатегориях #}
+                        {% for sub in category.subcategories.all %}
+                            {% for doc in sub.documents.all %}
+                            <div class="doc-card item-to-filter cat-{{ category.id }} sub-{{ sub.id }}">
                                 <div class="preview-area">
                                     {% if ".xls" in doc.file.url|lower %}
                                         <iframe src="https://view.officeapps.live.com/op/view.aspx?src=https://{{ request.get_host }}{{ doc.file.url|urlencode }}" loading="lazy"></iframe>
@@ -278,22 +254,47 @@
                                     <a href="{{ doc.file.url }}" target="_blank" class="btn-download">Открыть файл</a>
                                 </div>
                             </div>
+                            {% endfor %}
                         {% endfor %}
-                    {% endfor %}
 
-                {% endfor %}
+                    {% endfor %}
                 </div>
+            </div>
         </section>
     </main>
 
     <script>
+        function updateSubFilter() {
+            const mainVal = document.getElementById('main-filter').value;
+            const subFilter = document.getElementById('sub-filter');
+            const subOptions = subFilter.querySelectorAll('option');
+
+            // Сбрасываем подкатегорию на "Все" при смене главной
+            subFilter.value = 'all';
+
+            subOptions.forEach(opt => {
+                const parent = opt.getAttribute('data-parent');
+                if (mainVal === 'all' || parent === 'all' || parent === mainVal) {
+                    opt.style.display = 'block';
+                } else {
+                    opt.style.display = 'none';
+                }
+            });
+
+            filterDocs();
+        }
+
         function filterDocs() {
-            const val = document.getElementById('category-filter').value;
+            const mainVal = document.getElementById('main-filter').value;
+            const subVal = document.getElementById('sub-filter').value;
             const items = document.querySelectorAll('.item-to-filter');
 
             items.forEach(item => {
-                if (val === 'all' || item.classList.contains(val)) {
-                    item.style.display = 'block';
+                const matchMain = (mainVal === 'all' || item.classList.contains(mainVal));
+                const matchSub = (subVal === 'all' || item.classList.contains(subVal));
+
+                if (matchMain && matchSub) {
+                    item.style.display = 'flex';
                 } else {
                     item.style.display = 'none';
                 }
@@ -301,5 +302,4 @@
         }
     </script>
 </body>
-
 </html>
