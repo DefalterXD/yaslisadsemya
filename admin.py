@@ -1,48 +1,63 @@
+from django import forms
 from django.contrib import admin
-from .models import DocumentCategory, Document
+from .models import DocumentCategory, Document, MainCategory, SubCategory
 
-# Вкладка 1: Чисто для ГЛАВНЫХ категорий
-@admin.register(DocumentCategory)
-class MainCategoryAdmin(admin.ModelAdmin):
-    list_display = ('name',)
-    # Показываем только главные категории (где нет родителя)
-    def get_queryset(self, request):
-        return super().get_queryset(request).filter(parent__isnull=True)
+class DocumentAdminForm(forms.ModelForm):
+    # Поле для выбора только ГЛАВНЫХ категорий
+    main_category = forms.ModelChoiceField(
+        queryset=DocumentCategory.objects.filter(parent__isnull=True),
+        label="1. Выберите основную категорию",
+        required=True
+    )
     
-    # При создании новой категории в этой вкладке, поле "Родитель" будет скрыто
-    exclude = ('parent',)
+    # Поле для выбора ПОДКАТЕГОРИИ
+    sub_category = forms.ModelChoiceField(
+        queryset=DocumentCategory.objects.filter(parent__isnull=False),
+        label="2. Выберите подкатегорию (если нужно)",
+        required=False
+    )
 
-# Вкладка 2: Для Документов с нормальным отображением
+    class Meta:
+        model = Document
+        fields = ['main_category', 'sub_category', 'title', 'file', 'category']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Прячем стандартное поле category, оно заполнится автоматически
+        self.fields['category'].widget = forms.HiddenInput()
+        self.fields['category'].required = False
+
 @admin.register(Document)
 class DocumentAdmin(admin.ModelAdmin):
-    list_display = ('title', 'get_main_cat', 'get_sub_cat', 'uploaded_at')
-    list_filter = ('category',)
+    form = DocumentAdminForm
+    list_display = ('title', 'get_main', 'get_sub', 'uploaded_at')
 
-    @admin.display(description="КАТЕГОРИЯ")
-    def get_main_cat(self, obj):
+    def get_main(self, obj):
         return obj.category.parent.name if obj.category.parent else obj.category.name
+    get_main.short_description = 'КАТЕГОРИЯ'
 
-    @admin.display(description="САБКАТЕГОРИЯ")
-    def get_sub_cat(self, obj):
+    def get_sub(self, obj):
         return obj.category.name if obj.category.parent else "-"
-    
-    # Создаем "зеркало" для сабкатегорий
-class SubCategoryProxy(DocumentCategory):
-    class Meta:
-        proxy = True
-        verbose_name = "Сабкатегория"
-        verbose_name_plural = "Сабкатегории (Добавить сюда)"
+    get_sub.short_description = 'САБКАТЕГОРИЯ'
 
-@admin.register(SubCategoryProxy)
+    def save_model(self, request, obj, form, change):
+        # Логика: если выбрана сабкатегория — привязываем к ней. 
+        # Если нет — к главной.
+        main = form.cleaned_data.get('main_category')
+        sub = form.cleaned_data.get('sub_category')
+        obj.category = sub if sub else main
+        super().save_model(request, obj, form, change)
+
+# Регистрация категорий (те самые отдельные вкладки, которые мы делали)
+@admin.register(MainCategory)
+class MainCategoryAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    exclude = ('parent',)
+    def get_queryset(self, request):
+        return super().get_queryset(request).filter(parent__isnull=True)
+
+@admin.register(SubCategory)
 class SubCategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'parent')
-    
     def get_queryset(self, request):
-        # В этой вкладке только вложенные
         return super().get_queryset(request).filter(parent__isnull=False)
-
-    def formfield_for_foreignkey(self, db_field, request, **kwargs):
-        # Чтобы в выборе родителя были только ГЛАВНЫЕ
-        if db_field.name == "parent":
-            kwargs["queryset"] = DocumentCategory.objects.filter(parent__isnull=True)
-        return super().formfield_for_foreignkey(db_field, request, **kwargs)
